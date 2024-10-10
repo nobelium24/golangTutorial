@@ -28,6 +28,8 @@ func main() {
 	// createGIF()
 	// request()
 	// fetchAll()
+	var x, y int
+	fmt.Print(&x, &y)
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/count", counter)
 	http.HandleFunc("/handle2", handlerTwo)
@@ -188,10 +190,10 @@ func lissaJous(out http.ResponseWriter, r *http.Request) {
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
 	}
-	err2 := gif.EncodeAll(out, &anim)
+	err = gif.EncodeAll(out, &anim)
 
-	if err2 != nil {
-		fmt.Print(err2)
+	if err != nil {
+		fmt.Print(err)
 	}
 }
 
