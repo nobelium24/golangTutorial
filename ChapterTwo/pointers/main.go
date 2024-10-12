@@ -20,4 +20,25 @@ func main() {
 	*p = 45 // Dereference: Assign the value 45 to the location p points to (which is x)
 
 	fmt.Print(p) // Print the memory address stored in p
+
+	var f = f()
+	fmt.Printf("\n %v \n", *f)
+	*f = 25
+	fmt.Printf("%v \n", *f)
+
+	v := 5
+	incr(&v)
+	fmt.Println(incr(&v))
+}
+
+var p = f()
+
+func f() *int {
+	v := 1
+	return &v
+}
+
+func incr(p *int) int {
+	*p++
+	return *p
 }
