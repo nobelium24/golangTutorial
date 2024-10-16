@@ -1,4 +1,4 @@
-package main
+package echo4
 
 import (
 	"flag"

@@ -4,8 +4,10 @@ import (
 	"ChapterTwo/tempconv"
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -33,8 +35,24 @@ func main() {
 			}
 			f := tempconv.Fahrenheit(t)
 			c := tempconv.Celsius(t)
-			fmt.Printf("%s = %s, %s = %s\n",
+
+			fileName := "unitConverter.txt"
+
+			file, err := os.Create(fileName)
+			if err != nil {
+				fmt.Printf("An error occurred: %v\n", err)
+				continue
+			}
+			defer file.Close()
+			sentence := fmt.Sprintf("%s = %s, %s = %s\n",
 				f, tempconv.FToC(f), c, tempconv.CToF(c))
+			reader := strings.NewReader(sentence)
+			bytesWritten, err := io.Copy(file, reader)
+			if err != nil {
+				fmt.Printf("An error occurred while writing to the file: %v\n", err)
+				continue
+			}
+			fmt.Printf("Bytes written: %d\n", bytesWritten)
 		}
 	}
 }
