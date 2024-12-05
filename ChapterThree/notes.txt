@@ -1,0 +1,156 @@
+
+### **Basic Overview**
+Chapter 3 is dedicated to understanding Go’s basic types like numbers, strings, and booleans. It also explores composite types, such as arrays and slices, and focuses on encoding, conversions, and nuances of working with different data types.
+
+---
+
+### **1. Numbers**
+Go supports various numeric types, including integers, floating-point numbers, and complex numbers. The chapter explains their ranges, precision, and practical use cases.
+
+#### **Integers**
+- Integer types are categorized into **signed (`int8`, `int16`, `int32`, `int64`)** and **unsigned (`uint8`, `uint16`, etc.)**.
+- Example: 
+  ```go
+  var x int = 42
+  var y uint = 17
+  fmt.Println(x + int(y)) // Type conversion required
+  ```
+
+#### **Floating-point numbers**
+- **float32** and **float64** types are explained with examples of how precision affects computations.
+- **Example:**
+  ```go
+  var f float32 = 16777216 // 2^24
+  fmt.Println(f == f+1)    // Output: true, due to loss of precision
+  ```
+
+#### **Operations**
+- Arithmetic operations (+, -, *, /) and bitwise operators (&, |, ^, etc.) are covered. 
+- Shifts are introduced with `<<` (left shift) and `>>` (right shift). 
+  **Example:**
+  ```go
+  var x int = 1
+  fmt.Println(x << 3) // Output: 8
+  ```
+
+---
+
+### **2. Booleans**
+Boolean values (`true` and `false`) are used in logical operations and control flow constructs.
+
+- Logical operators like `&&` (AND), `||` (OR), and `!` (NOT) are used to construct conditions.
+- **Example:**
+  ```go
+  var flag bool = (5 > 3) && (2 < 4)
+  fmt.Println(flag) // Output: true
+  ```
+
+---
+
+### **3. Strings**
+Strings in Go are immutable sequences of bytes, making them UTF-8 compatible by design.
+
+#### **Key Concepts**
+- String literals can be:
+  - **Double-quoted (`"`)**: Interpreted as UTF-8 text.
+  - **Raw strings (` backticks `)**: Preserves newlines and special characters.
+  
+#### **Unicode and UTF-8**
+- Unicode code points (or runes) are explained using examples:
+  ```go
+  fmt.Println(len("世"))       // Output: 3 (UTF-8 encoding uses 3 bytes)
+  fmt.Println("\u4e16")        // Output: 世 (Unicode representation)
+  ```
+
+- UTF-8 encoding ensures compatibility with ASCII, allowing efficient handling of multilingual text.
+
+#### **Manipulations**
+- Substring slicing and joining:
+  ```go
+  s := "Hello, 世界"
+  fmt.Println(s[:5])           // Output: Hello
+  ```
+
+---
+
+### **4. Constants**
+Constants are unchanging values declared with the `const` keyword. 
+
+#### **iota**
+- A special enumerator for constants:
+  ```go
+  type Flags uint
+  const (
+      FlagUp           Flags = 1 << iota // 1
+      FlagBroadcast                      // 2
+      FlagLoopback                       // 4
+  )
+  ```
+
+---
+
+### **5. Arrays and Slices**
+Arrays in Go are fixed-length sequences, while slices are dynamic, offering flexibility.
+
+#### **Examples**
+- Arrays:
+  ```go
+  var a [3]int = [3]int{1, 2, 3}
+  fmt.Println(a[1]) // Output: 2
+  ```
+
+- Slices:
+  ```go
+  s := []int{1, 2, 3, 4}
+  fmt.Println(s[:2]) // Output: [1 2]
+  ```
+
+Slices are pivotal for dynamic data handling in Go.
+
+---
+
+### **6. Recursion**
+The chapter uses the `comma` function as an example of recursion. It processes strings by breaking problems into smaller sub-problems:
+
+```go
+func comma(s string) string {
+  n := len(s)
+  if n <= 3 {
+    return s
+  }
+  return comma(s[:n-3]) + "," + s[n-3:]
+}
+```
+
+---
+
+### **7. The `crypto/sha256` Package**
+The chapter explains hashing with `sha256`, showcasing byte arrays and comparisons:
+
+```go
+import "crypto/sha256"
+
+c1 := sha256.Sum256([]byte("x"))
+fmt.Printf("%x\n", c1) // Outputs hash in hexadecimal
+```
+
+---
+
+### **8. The PopCount Example**
+This example demonstrates bitwise operations, table lookups, and performance optimization. It uses an array `pc` to count the population of set bits in an integer:
+
+```go
+func init() {
+  for i := range pc {
+    pc[i] = pc[i/2] + byte(i&1)
+  }
+}
+```
+
+This method is later extended to show iterative and bit-shifting approaches for computing population counts.
+
+---
+
+### **Summary**
+Chapter 3 equips the reader with foundational knowledge of Go’s data types and operations. By diving into the nuances of encoding, recursion, and bitwise manipulations, it ensures the reader can handle real-world challenges efficiently while writing clean and performant code.
+
