@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People</title>
+</head>
+<body>
+    <h1>People</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+        {{range .}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.Age}}</td>
+            <td>{{.City}}</td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>
